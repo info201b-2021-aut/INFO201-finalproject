@@ -1,5 +1,5 @@
 ---
-title: "index"
+title: "Exploratory Analysis"
 author: "Parsa Khazaeepoul, Yuna, Grace, Jinwoo"
 date: "11/19/2021"
 output: html_document
@@ -54,7 +54,7 @@ degree_unemployment_plot <- ggplot(degree_unemployment_table, aes(x=Year),colour
   geom_line(aes(y = High), color="steelblue") + 
   geom_line(aes(y = Associates), color = "yellow") +
   geom_line(aes(y= Professional), color = "black") +
-  labs(x ="Year", y = "Unemployment Rate (in %)", title = "Average Unemployment Rate by Degree per Year")
+  labs(x ="Year", y = "Unemployment Rate (in %)", title = "Average Unemployment Rate by Degree Per Year")
 
 degree_unemployment_plot
 
@@ -79,7 +79,6 @@ race_unemployment_plot
 
 
 ```
-## Exploratory Analysis
 
 ### Introduction
 We chose for our domain to be unemployment rates in the U.S. on a national level. We chose unemployment rates as we hope to uncover trends and analyze the data to understand it better. Our data set includes various metrics that allow us to track education levels and races unemployment rates through time to help us better represent how rates have changed through the years. 

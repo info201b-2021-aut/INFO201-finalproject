@@ -8,7 +8,7 @@ library(scales)
 unemployment_data <- read.csv("https://raw.githubusercontent.com/info201b-2021-aut/final-project-ydodobara/main/unemployment_data_us.csv?token=AV5GDCQ6NSCEO6CMDSCIE7TBT24CQ")
 View(unemployment_data)
 
-#Chart 1: Visualization of AVerage Unemployment Rate by Race per year 
+#Chart 1: Visualization of Average Unemployment Rate by Race per year 
 
 race_unemployment <- unemployment_data %>%
   select(Year, White, Black, Asian, Hispanic)
