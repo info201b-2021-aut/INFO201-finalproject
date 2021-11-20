@@ -66,16 +66,15 @@ degree_unemployment_table
 
 proportion <- degree_unemployment_table$prop
 
-pie <- ggplot(degree_unemployment_table, aes(x="", y=prop, fill=degree)) +
+degree_unemployment_plot <- ggplot(degree_unemployment_table, aes(x="", y=prop, fill=degree)) +
   geom_bar(stat="identity", width=1, color="white") +
   coord_polar("y", start=0) +
   theme_void() + 
   theme(legend.position="top") +
-  geom_text(aes(y = ypos, label = prop), color = "white", size=6) +
-  scale_fill_brewer(palette="Set1")
+  geom_text(aes(y = ypos, label = prop, size = 5), color = "white", size=6) +
+  scale_fill_brewer(palette="Set1") + labs(title = "Percentage of Unemployment by Degree (in %)")
 
-
-pie +labs(title = "Percentage of unemployment by degree")
+degree_unemployment_plot
 
 #Chart 3: Visualization of Average Unemployment Rate by Gender Per Year 
 race_unemployment <- unemployment_data %>%
