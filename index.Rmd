@@ -70,7 +70,7 @@ gender_unemployment_table <- race_unemployment %>%
 gender_unemployment_table <- pivot_longer(gender_unemployment_table, Men : Women, names_to = "Gender", values_to = "unemployment_rate")
 
 gender_unemployment_plot <- ggplot(gender_unemployment_table) +
-  geom_line(mapping = aes(x = Year, y = unemployment_rate, group = Gender, color = Gender)) +
+  geom_point(mapping = aes(x = Year, y = unemployment_rate, group = Gender, color = Gender)) +
   labs(x = "Year",
        y = "Unemployment Rate (in %)",
        title = "Average Unemployment Rate By Gender Per Year")
@@ -104,4 +104,4 @@ The purpose for including chart one was to visually depict the relations between
 
 The purpose for including chart two was to visually depict the relations between degree and unemployment rate. The insight gained from this was that certain degrees had lower rates of unemployment than other degrees (Notably, as education levels rose, unemployment rates dropped).
 
-The purpose for including chart three was to visually depict the relations between gender and unemployment rate. The insight gained from this was that certain genders had lower rates of unemployment then other genders (Notably, Men had a higher unemployment rate than women).
+The purpose for including chart th    ree was to visually depict the relations between gender and unemployment rate. The insight gained from this was that certain genders had lower rates of unemployment then other genders (Notably, Men had a higher unemployment rate than women).
