@@ -99,3 +99,9 @@ race_unemployment_plot
 degree_unemployment_plot
 gender_unemployment_plot
 ```
+
+The purpose for including chart one was to visually depict the relations between race and unemployment rate. The insight gained from this was that certain races had higher rates of unemployment then other races (Notably, Black and Hispanic's had the highest unemployment rates).
+
+The purpose for including chart two was to visually depict the relations between degree and unemployment rate. The insight gained from this was that certain degrees had lower rates of unemployment than other degrees (Notably, as education levels rose, unemployment rates dropped).
+
+The purpose for including chart three was to visually depict the relations between gender and unemployment rate. The insight gained from this was that certain genders had lower rates of unemployment then other genders (Notably, Men had a higher unemployment rate than women).
