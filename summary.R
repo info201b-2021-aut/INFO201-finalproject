@@ -28,22 +28,22 @@ summary_info$avg_rate_hispanic_2020 <- unemployment %>%
   summarize(avg_rate = mean(Hispanic, na.rm = TRUE)) %>%
   pull(avg_rate)
 
-# Date with highest unemployment rate for White people
+# Month-Year with highest unemployment rate for White people
 summary_info$highest_rate_white <- unemployment %>%
   filter(White == max(White, na.rm = TRUE)) %>%
   pull(Date)
 
-# Date with highest unemployment rate for Black people
+# Month-Year with highest unemployment rate for Black people
 summary_info$highest_rate_black <- unemployment %>%
   filter(Black == max(Black, na.rm = TRUE)) %>%
   pull(Date)
 
-# Date with highest unemployment rate for Asian people
+# Month-Year with highest unemployment rate for Asian people
 summary_info$highest_rate_asian <- unemployment %>%
   filter(Asian == max(Asian, na.rm = TRUE)) %>%
   pull(Date)
   
-# Date with highest unemployment rate for Hispanic people
+# Month-Year with highest unemployment rate for Hispanic people
 summary_info$highest_rate_hispanic <- unemployment %>%
   filter(Hispanic == max(Hispanic, na.rm = TRUE)) %>%
   pull(Date)

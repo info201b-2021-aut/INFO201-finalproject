@@ -5,3 +5,4 @@ unemployment <- read.csv("https://raw.githubusercontent.com/info201b-2021-aut/fi
 unemployment_by_race <- unemployment %>%
   group_by(Date) %>%
   select(Date, White, Black, Asian, Hispanic)
+
