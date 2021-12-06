@@ -8,7 +8,7 @@ unemployment <- read.csv("https://raw.githubusercontent.com/info201b-2021-aut/fi
 
 # This creates a column called "Month_num" that changes month abbreviations into numbers (Jan = 1, etc.) and creates a column called "Gender" with values from both "Men" and "Women" columns
 unemployment_date_gender_table <- unemployment %>%
-  mutate(Month_num = match(unemployment_date_gender_table$Month, month.abb)) %>%
+  mutate(Month_num = match(unemployment$Month, month.abb)) %>%
   pivot_longer(cols = c("Men", "Women"), names_to = "Gender", values_to = "Rate by Gender") 
 
 # Intro page
