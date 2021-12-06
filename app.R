@@ -11,9 +11,32 @@ unemployment_date_gender_table <- unemployment %>%
   mutate(Month_num = match(unemployment$Month, month.abb)) %>%
   pivot_longer(cols = c("Men", "Women"), names_to = "Gender", values_to = "Rate by Gender") 
 
+# This groups together all education levels into one column called "Education_Level" and shows the rates of each education level in a column called "Rate_by_Education_Level"
+unemployment_education_table <- unemployment %>%
+  pivot_longer(cols = c("Primary_School", "High_School", "Associates_Degree", "Professional_Degree"), names_to = "Education_Level", values_to = "Rate_by_Education_Level")
+
 # Intro page
 
 # Interactive page 1
+unemployment_education <- tabPanel(
+  "Unemployment by Education Level",
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons(
+        inputId = "radio",
+        label = h3("Select an education level:"),
+        choices = list("Primary School" = "Primary_School", "High School" = "High_School", "Associates Degree" = "Associates_Degree", "Professional Degree" = "Professional_Degree")
+      )
+    ),
+    mainPanel(
+      plotlyOutput(outputId = "unemployment_education_chart"),
+      p("Throughout the years displayed, the average unemployment rate has constantly decreased in all education levels showing
+      that the U.S. has been more lenient of who to hire and not judge based off of education level. But in comparison to one another, 
+      the average unemployment rates were always greater the lower the education level someone has. This demonstrates that even though 
+      unemployment rates have been lower recently, there still is a bias that the less educated you are, the more likely you are to be unemployed.")
+    )
+  )
+)
 
 # Interactive page 2
 InteractivePageTwo <- 
@@ -70,6 +93,7 @@ unemployment_date_gender <- tabPanel(
 
 ui <- navbarPage(
   "Unemployment Data Analysis",
+  unemployment_education,
   InteractivePageTwo,
   unemployment_date_gender
 )
@@ -77,6 +101,20 @@ ui <- navbarPage(
 # Server code
 
 server <- function(input, output){
+  #Interactive page 1
+  output$unemployment_education_chart <- renderPlotly({
+    unemployment_education_table %>%
+      filter(Education_Level %in% input$radio) %>%
+      group_by(Year) %>%
+      mutate(rate = mean(Rate_by_Education_Level, na.rm = TRUE)) %>%
+      plot_ly(x = ~Year, y = ~rate, type = "scatter", mode = "markers",
+              text = ~paste("Year:", Year, "Rate:", rate),
+              color = ~Education_Level,
+              colors = "medium purple") %>%
+      layout(title = "Average Unemployment Rates by Education Level Per Year",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Unemployment Rate"))
+  })
   #InteractivePageTwo 
   race_data <- unemployment %>%
     select(Date, White, Black, Asian, Hispanic)
