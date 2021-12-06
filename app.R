@@ -6,9 +6,9 @@ library(shinyWidgets)
 
 unemployment <- read.csv("https://raw.githubusercontent.com/info201b-2021-aut/final-project-ydodobara/main/unemployment_data_us.csv?token=AV5HNBIXZBOMVUYCBJUB4D3BW2RJ4")
 
-# This changes month abbreviations into numbers (Jan = 1, etc.) and creates a column called "Gender" with values from both "Men" and "Women" columns
+# This creates a column called "Month_num" that changes month abbreviations into numbers (Jan = 1, etc.) and creates a column called "Gender" with values from both "Men" and "Women" columns
 unemployment <- unemployment %>%
-  mutate(Month = match(unemployment$Month, month.abb)) %>%
+  mutate(Month_num = match(unemployment$Month, month.abb)) %>%
   pivot_longer(cols = c("Men", "Women"), names_to = "Gender", values_to = "Rate by Gender") 
 
 # Intro page
@@ -63,7 +63,7 @@ server <- function(input, output){
       filter(Year %in% input$years) %>%
       filter(Gender %in% input$gender) %>%
       group_by(Gender) %>%
-      plot_ly(x = ~Month, y = ~`Rate by Gender`, type = "scatter", mode = "lines",
+      plot_ly(x = ~Month_num, y = ~`Rate by Gender`, type = "scatter", mode = "lines",
               text = ~paste("Month:", Month, "Year:", Year, "Rate:", `Rate by Gender`), 
               color = ~Gender) %>%
       layout(title = "Unemployment Rates by Date and Gender",
