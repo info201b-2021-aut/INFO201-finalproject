@@ -7,8 +7,8 @@ library(shinyWidgets)
 unemployment <- read.csv("https://raw.githubusercontent.com/info201b-2021-aut/final-project-ydodobara/main/unemployment_data_us.csv?token=AV5HNBIXZBOMVUYCBJUB4D3BW2RJ4")
 
 # This creates a column called "Month_num" that changes month abbreviations into numbers (Jan = 1, etc.) and creates a column called "Gender" with values from both "Men" and "Women" columns
-unemployment <- unemployment %>%
-  mutate(Month_num = match(unemployment$Month, month.abb)) %>%
+unemployment_date_gender_table <- unemployment %>%
+  mutate(Month_num = match(unemployment_date_gender_table$Month, month.abb)) %>%
   pivot_longer(cols = c("Men", "Women"), names_to = "Gender", values_to = "Rate by Gender") 
 
 # Intro page
@@ -33,7 +33,7 @@ unemployment_date_gender <- tabPanel(
       radioGroupButtons(
         "years",
         label = h3("Select a range of years"),
-        choices = unique(unemployment$Year)
+        choices = unique(unemployment_date_gender_table$Year)
       )
     ),
     mainPanel(
@@ -59,7 +59,7 @@ ui <- navbarPage(
 
 server <- function(input, output){
   output$date_gender_chart <- renderPlotly({
-    unemployment %>%
+    unemployment_date_gender_table %>%
       filter(Year %in% input$years) %>%
       filter(Gender %in% input$gender) %>%
       group_by(Gender) %>%
