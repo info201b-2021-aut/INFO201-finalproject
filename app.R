@@ -15,8 +15,26 @@ unemployment_date_gender_table <- unemployment %>%
 
 # Interactive page 1
 
-
 # Interactive page 2
+InteractivePageTwo <- 
+  tabPanel("Unemployment Data by Race", 
+           fluidPage(
+             h1("Visualization of the unemplotment rate by race.")
+           ),
+           fluidRow(
+             column(8,
+                    #Select Race
+                    selectInput(inputId = "race", "Race",
+                                c("White", "Black", "Asian", "Hispanic")
+                    )
+             )
+           ),
+           plotOutput(outputId = "graph"),
+           textOutput(outputId = "textguy")
+  )
+
+
+# Define server logic ----
 
 
 # Interactive page 3
@@ -52,12 +70,46 @@ unemployment_date_gender <- tabPanel(
 
 ui <- navbarPage(
   "Unemployment Data Analysis",
+  InteractivePageTwo,
   unemployment_date_gender
 )
 
 # Server code
 
 server <- function(input, output){
+  #InteractivePageTwo 
+  race_data <- unemployment %>%
+    select(Date, White, Black, Asian, Hispanic)
+  
+  #display graph of unemployment rate by race  
+  output$graph <- renderPlot({
+    #select filter 
+    if(input$race == "White"){
+      select_race_data <- data.frame(xaxis =race_data$Date, yaxis =race_data$White)
+    } 
+    if(input$race == "Black"){
+      select_race_data <- data.frame(xaxis =race_data$Date, yaxis=race_data$Black)
+    } 
+    if(input$race == "Asian"){
+      select_race_data <- data.frame(xaxis=race_data$Date, yaxis=race_data$Asian)
+    }  
+    if(input$race == "Hispanic"){
+      select_race_data <- data.frame(xaxis=race_data$Date, yaxis=race_data$Hispanic)
+    }  
+    #plot
+    ggplot(select_race_data, aes(x=xaxis, y=yaxis, na.rm=TRUE), xaxt = "n") + 
+      geom_point(color="red", size = 3) +
+      labs(title = "Unemployment Fluctuation by each Race", subtitle = "From January 2010 to December 2020") +
+      xlab("Month, Year (2010-2020)") +
+      ylab("Unemployment Rate") +
+      theme(axis.text.x = element_blank())
+  })
+  
+  #Indicate the selected Continent 
+  output$textguy <- renderText({ 
+    paste("You are currently looing at the recorded unemployment rate of ", input$race, ".", 
+          "Carefully examine the change in scale differs by each different Race. Note: one tick accounts for one month.")
+  })
   output$date_gender_chart <- renderPlotly({
     unemployment_date_gender_table %>%
       filter(Year %in% input$years) %>%
@@ -74,4 +126,5 @@ server <- function(input, output){
 }
 
 shinyApp(ui = ui, server = server)
+
 
