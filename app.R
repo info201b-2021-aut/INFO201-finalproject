@@ -57,9 +57,6 @@ InteractivePageTwo <-
   )
 
 
-# Define server logic ----
-
-
 # Interactive page 3
 
 unemployment_date_gender <- tabPanel(
@@ -148,6 +145,8 @@ server <- function(input, output){
     paste("You are currently looing at the recorded unemployment rate of ", input$race, ".", 
           "Carefully examine the change in scale differs by each different Race. Note: one tick accounts for one month.")
   })
+  
+  # Interactive page 3
   output$date_gender_chart <- renderPlotly({
     unemployment_date_gender_table %>%
       filter(Year %in% input$years) %>%
