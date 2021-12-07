@@ -15,6 +15,11 @@ unemployment_date_gender_table <- unemployment %>%
 unemployment_education_table <- unemployment %>%
   pivot_longer(cols = c("Primary_School", "High_School", "Associates_Degree", "Professional_Degree"), names_to = "Education_Level", values_to = "Rate_by_Education_Level")
 
+# This creats the table of that mutate the race types into one column. 
+unemployment_race_table <- unemployment %>%
+  pivot_longer(cols =c("White", "Black", "Asian","Hispanic"), names_to = "Race_type", values_to = "Rate_by_race")
+
+
 # Intro page
 
 # Interactive page 1
@@ -39,21 +44,23 @@ unemployment_education <- tabPanel(
 )
 
 # Interactive page 2
+
 InteractivePageTwo <- 
-  tabPanel("Unemployment Data by Race", 
-           fluidPage(
-             h1("Visualization of the unemplotment rate by race.")
-           ),
-           fluidRow(
-             column(8,
-                    #Select Race
-                    selectInput(inputId = "race", "Race",
-                                c("White", "Black", "Asian", "Hispanic")
-                    )
-             )
-           ),
-           plotOutput(outputId = "graph"),
-           textOutput(outputId = "textguy")
+  tabPanel(
+    "Unemployment Data by Race", 
+    fluidPage(
+      h2("Visualization of the unemployment rate by race.")
+    ),
+        selectInput(inputId = "race", 
+                    label = h4("Select the Race"),
+                    choices = list("White" = "White","Black" = "Black", "Asian" =  "Asian","Hispanic" = "Hispanic")
+                  ),
+    mainPanel(
+      plotlyOutput(outputId = "unemployment_race_chart"),
+      p("Carefully examine the change in scale which differs by each selected Race. When the unemplayment rate gets compared by each race, 
+        the data suggests the higest unemployment rate in the Black. The lowest was from the Asian. Also, the trend can be observed. In all
+        races, there is a strong tendency of increasing in the unemployment rate.")
+    )
   )
 
 
@@ -113,39 +120,20 @@ server <- function(input, output){
              yaxis = list(title = "Unemployment Rate"))
   })
   #InteractivePageTwo 
-  race_data <- unemployment %>%
-    select(Date, White, Black, Asian, Hispanic)
-  
-  #display graph of unemployment rate by race  
-  output$graph <- renderPlot({
-    #select filter 
-    if(input$race == "White"){
-      select_race_data <- data.frame(xaxis =race_data$Date, yaxis =race_data$White)
-    } 
-    if(input$race == "Black"){
-      select_race_data <- data.frame(xaxis =race_data$Date, yaxis=race_data$Black)
-    } 
-    if(input$race == "Asian"){
-      select_race_data <- data.frame(xaxis=race_data$Date, yaxis=race_data$Asian)
-    }  
-    if(input$race == "Hispanic"){
-      select_race_data <- data.frame(xaxis=race_data$Date, yaxis=race_data$Hispanic)
-    }  
-    #plot
-    ggplot(select_race_data, aes(x=xaxis, y=yaxis, na.rm=TRUE), xaxt = "n") + 
-      geom_point(color="red", size = 3) +
-      labs(title = "Unemployment Fluctuation by each Race", subtitle = "From January 2010 to December 2020") +
-      xlab("Month, Year (2010-2020)") +
-      ylab("Unemployment Rate") +
-      theme(axis.text.x = element_blank())
+  output$unemployment_race_chart <- renderPlotly({
+    unemployment_race_table %>%
+      filter(Race_type %in% input$race) %>%
+      group_by(Year) %>%
+      mutate(rate = mean(Rate_by_race, na.rm = TRUE)) %>%
+      plot_ly(x = ~Year, y = ~rate, type = "scatter", mode = "markers",
+              text = ~paste("Year:", Year, "Rate:", rate),
+              color = ~Race_type,
+              colors = "Orange") %>%
+      layout(title = "Unemployment of Each selected Race",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Unemployment Rate"))
   })
-  
-  #Indicate the selected Continent 
-  output$textguy <- renderText({ 
-    paste("You are currently looing at the recorded unemployment rate of ", input$race, ".", 
-          "Carefully examine the change in scale differs by each different Race. Note: one tick accounts for one month.")
-  })
-  
+
   # Interactive page 3
   output$date_gender_chart <- renderPlotly({
     unemployment_date_gender_table %>%
