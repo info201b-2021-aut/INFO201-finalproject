@@ -1,7 +1,3 @@
-# final-project-starter
-
-*This is where you will create your Github repo for your final project. Instructions are on Canvas!*
-***
 #### Why are you interested in this field/domain?
 
 *We are interested in this field/domain because we want to compare the data of unemployment rates through the various ears in the U.S., both on a national level and state level.*
