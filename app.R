@@ -36,7 +36,7 @@ introduction <- tabPanel(
 )
 
 
-# Interactive page 1
+# Interactive page 3
 unemployment_education <- tabPanel(
   "Unemployment by Education Level",
   sidebarLayout(
@@ -78,7 +78,7 @@ unemployment_race <-
   )
 
 
-# Interactive page 3
+# Interactive page 1
 
 unemployment_date_gender <- tabPanel(
   "Unemployment by Date and Gender",
@@ -129,9 +129,9 @@ takeaways <- tabPanel(
 ui <- navbarPage(
   "Unemployment Data Analysis",
   introduction,
-  unemployment_education,
-  unemployment_race,
   unemployment_date_gender,
+  unemployment_race,
+  unemployment_education,
   takeaways
 )
 
