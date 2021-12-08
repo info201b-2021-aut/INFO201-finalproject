@@ -31,7 +31,7 @@ introduction <- tabPanel(
         three to focus on in our analysis. The questions were the following: ", strong("'Has the unemployment rate increased or decreased more over time?', 'What group of people is the most unemployed?', and 'How is education 
         related to unemployment?'."), " Our data set contained all the information necessary to understand and answer these questions, and so with it, we set out to create answers to our questions, which we successfully 
         were able to do and can be found in the tabs within this shiny application.
-", p(), img(src = "unemployment.jpg", width = 535), style = "font-family: 'times'; font-si16pt")
+", p(), img(src = "unemployment.jpg", width = 535), style = "font-family: 'times'; font-si16pt"), p(), h5("Created By: Parsa Khazaeepoul, Yuna Dodobara, Jinwoo Ahn, and Grace Suyama", style = "font-family: 'times'; font-si16pt")
   )
 )
 
