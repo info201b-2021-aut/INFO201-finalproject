@@ -98,8 +98,8 @@ unemployment_date_gender <- tabPanel(
     mainPanel(
       plotlyOutput(outputId = "date_gender_chart"),
       p(em("Economic change can change unemployment rates drastically,"), " and analyzing the unemployment rates in a certain month and/or year within this visualization 
-      can help describe the economic situation that the U.S. was in during that time. For example, following the 2008 crash and higher then ever unemployment rates we can see rates recover from 2010 onwards, 
-      with them only going up only a ", em("single"), " year in the last decade (during the COVID crash). In addition, unemployment rates by gender are important to analyze due to the fact that women are known to be treated less fairly 
+      can help describe the economic situation that the U.S. was in during that time. For example, following the 2008 crash with higher than ever unemployment rates, we can see rates recover from 2010 onwards, 
+      with the rates going up only a ", em("single"), " year in the last decade (during the COVID crash). In addition, unemployment rates by gender are important to analyze due to the fact that women are known to be treated less fairly 
       than men, and it can be seen that the trend follows in unemployment rates as their rates show to be higher then mens in the visualizations above.", style = "font-family: 'times'; font-si16pt")
     )
   )
@@ -129,9 +129,9 @@ takeaways <- tabPanel(
 ui <- navbarPage(
   "Unemployment Data Analysis",
   introduction,
-  unemployment_date_gender,
-  unemployment_race,
   unemployment_education,
+  unemployment_race,
+  unemployment_date_gender,
   takeaways
 )
 
