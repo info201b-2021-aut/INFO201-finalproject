@@ -59,7 +59,7 @@ unemployment_education <- tabPanel(
 
 # Interactive page 2
 
-InteractivePageTwo <- 
+unemployment_race <- 
   tabPanel(
     "Unemployment Data by Race", 
     fluidPage(
@@ -71,9 +71,9 @@ InteractivePageTwo <-
                   ),
     mainPanel(
       plotlyOutput(outputId = "unemployment_race_chart"),
-      p("Carefully examine the change in scale which differs by each selected Race. When the unemplayment rate gets compared by each race, 
-        the data suggests the higest unemployment rate in the Black. The lowest was from the Asian. Also, the trend can be observed. In all
-        races, there is a strong tendency of increasing in the unemployment rate.", style = "font-family: 'times'; font-si16pt")
+      p("The difference between races and their associated unemployment rates is made apparent with this visualization. Upon comparing White unemployment to Black unemployment, it can be see that there is a drastic 
+      change in scale as the percentages change noticeably for the two races. When unemployment rate is compared by each race, it can be seen that the highest unemployment rates come from Black (African American) 
+      individuals. The lowest  unemployment rates being from Asian Americans. Also, the trend of ", em("lowered")," rates of unemployment can be observed in ", strong("all")," races.", style = "font-family: 'times'; font-si16pt")
     )
   )
 
@@ -86,20 +86,21 @@ unemployment_date_gender <- tabPanel(
     sidebarPanel(
       checkboxGroupInput(
         "gender",
-        label = h3("Select one or more genders", style = "font-family: 'times'; font-si16pt"),
+        label = h3("Select one or more genders:", style = "font-family: 'times'; font-si16pt"),
         choices = list("Men" = "Men", "Women" = "Women")
       ),
       radioGroupButtons(
         "years",
-        label = h3("Select a range of years", style = "font-family: 'times'; font-si16pt"),
+        label = h3("Select a range of years:", style = "font-family: 'times'; font-si16pt"),
         choices = unique(unemployment_date_gender_table$Year)
       )
     ),
     mainPanel(
       plotlyOutput(outputId = "date_gender_chart"),
-      p("Economic change can change unemployment rates, and analyzing the unemployment rates in a certain month and/or year 
-      can describe the economic situation the U.S. was in during that time. In addition, unemployment rates by gender are important
-        to analyze due to the fact that women are known to be treated less fairly than men.", style = "font-family: 'times'; font-si16pt")
+      p(em("Economic change can change unemployment rates drastically,"), " and analyzing the unemployment rates in a certain month and/or year within this visualization 
+      can help describe the economic situation that the U.S. was in during that time. For example, following the 2008 crash and higher then ever unemployment rates we can see rates recover from 2010 onwards, 
+      with them only going up only a ", em("single"), " year in the last decade (during the COVID crash). In addition, unemployment rates by gender are important to analyze due to the fact that women are known to be treated less fairly 
+      than men, and it can be seen that the trend follows in unemployment rates as their rates show to be higher then mens in the visualizations above.", style = "font-family: 'times'; font-si16pt")
     )
   )
 )
@@ -112,12 +113,13 @@ takeaways <- tabPanel(
     h4("A Brief Summary on Our Questions and Our Takeaways from Their Answers", style = "font-family: 'times'; font-si16pt"),
     p("The questions we started with were the following: ", strong("'Has the unemployment rate increased or decreased more over time?', 'What group of people is the most unemployed?', and 'How is education 
         related to unemployment?'."), " With the analysis seen in our visualizations we found that the answers to our questions were as follows. For our first question we saw that unemployment rates had noticeably 
-        decreased every year since 2010, with 2020 (the year of coronavirus) being the first in many where we saw a notable increase. In our visualizations we found that Asian Americans had the highest rates of 
+        decreased every year since 2010, with 2020 (the year of coronavirus) being the first in many where we saw a notable increase. In our visualizations we found that African Americans had the highest rates of 
         unemployment in 2020. We were also able to conclude that as educational levels increased, unemployment rates dropped alongside them. Our major takeaways from this project were that despite initially thinking 
-        that unemployment rates would have been increasing year, in the last decade they have shown to be decreasing year by year. Minorities were seen to have higher rates of unemployment in comparison to White Americans 
+        that unemployment rates would have been increasing yearly, in the last decade they have shown to be decreasing year by year. Minorities were seen to have higher rates of unemployment in comparison to White Americans 
         and those with higher education levels had lower unemployment rates as education increased. Another takeaway was that the notable trend of white men having power in society (in positions of power and law, 
         incarcerations rates, and as talk show hosts even) followed itself out from society into the statistics and showed itself within the visualizations of our project. Our analysis allowed us to realize that 
-        minorities and women had the lowest rates of employment, with minority women specifically having drastically lower rates of employment than white men.
+        minorities and women had the lowest rates of employment, with minority women specifically having drastically lower rates of employment than white men, along with various other conclusions that we were able to 
+        come to with the aid of our combined visualizations and analysis.
 ", p(), img(src = "summary.png", width = 535), style = "font-family: 'times'; font-si16pt")
   )
 )
@@ -127,9 +129,9 @@ takeaways <- tabPanel(
 ui <- navbarPage(
   "Unemployment Data Analysis",
   introduction,
-  unemployment_education,
-  InteractivePageTwo,
   unemployment_date_gender,
+  unemployment_race,
+  unemployment_education,
   takeaways
 )
 
