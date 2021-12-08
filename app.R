@@ -91,7 +91,7 @@ unemployment_date_gender <- tabPanel(
       ),
       radioGroupButtons(
         "years",
-        label = h3("Select a range of years:", style = "font-family: 'times'; font-si16pt"),
+        label = h3("Select a year:", style = "font-family: 'times'; font-si16pt"),
         choices = unique(unemployment_date_gender_table$Year)
       )
     ),
@@ -100,7 +100,7 @@ unemployment_date_gender <- tabPanel(
       p(em("Economic change can change unemployment rates drastically,"), " and analyzing the unemployment rates in a certain month and/or year within this visualization 
       can help describe the economic situation that the U.S. was in during that time. For example, following the 2008 crash with higher than ever unemployment rates, we can see rates recover from 2010 onwards, 
       with the rates going up only a ", em("single"), " year in the last decade (during the COVID crash). In addition, unemployment rates by gender are important to analyze due to the fact that women are known to be treated less fairly 
-      than men, and it can be seen that the trend follows in unemployment rates as their rates show to be higher then mens in the visualizations above.", style = "font-family: 'times'; font-si16pt")
+      than men. Based on our visualizations, the unemployment rate of men tend to be higher than women, and it is interesting to see that there are times when rates in one gender increases while the rates for the other gender decreases.", style = "font-family: 'times'; font-si16pt")
     )
   )
 )
