@@ -18,8 +18,8 @@ unemployment_data <- read.csv("https://raw.githubusercontent.com/info201b-2021-a
 unemployment_by_race <- unemployment_data %>%
   group_by(Date) %>%
   select(Date, White, Black, Asian, Hispanic)
-#Chart 1: Visualization of Average Unemployment Rate by Race Per Year 
 
+#Chart 1: Visualization of Average Unemployment Rate by Race Per Year 
 race_unemployment <- unemployment_data %>%
   select(Year, White, Black, Asian, Hispanic)
 
@@ -55,9 +55,7 @@ degree_unemployment_table <- data.frame(
   value=c(sum(degree_unemployment_table$Primary),sum(degree_unemployment_table$High),sum(degree_unemployment_table$Associates), sum(degree_unemployment_table$Professional))
 )
 
-
 degree_unemployment_table
-
 degree_unemployment_table <- degree_unemployment_table %>% 
   arrange(desc(group)) %>%
   mutate(prop = value / sum(degree_unemployment_table$value) *100) %>%
@@ -120,6 +118,6 @@ gender_unemployment_plot
 
 The purpose for including chart one was to visually depict the relations between race and unemployment rate. The insight gained from this was that certain races had higher rates of unemployment then other races (Notably, Black and Hispanic's had the highest unemployment rates).
 
-The purpose for including chart two was to visually depict the relations between degree and unemployment rate. The insight gained from this was that certain degrees had lower rates of unemployment than other degrees (Notably, as education levels rose, unemployment rates dropped). To visualize the differnce, pie chart was introduced.
+The purpose for including chart two was to visually depict the relations between degree and unemployment rate. The insight gained from this was that certain degrees had lower rates of unemployment than other degrees (Notably, as education levels rose, unemployment rates dropped). To visualize the difference, pie chart was introduced.
 
 The purpose for including chart th    ree was to visually depict the relations between gender and unemployment rate. The insight gained from this was that certain genders had lower rates of unemployment then other genders (Notably, Men had a higher unemployment rate than women).

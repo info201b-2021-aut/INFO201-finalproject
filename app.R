@@ -1,8 +1,8 @@
-#install.packages("shinyWidgets")
 library(shiny)
 library(tidyverse)
 library(plotly)
 library(shinyWidgets)
+library(shinythemes)
 
 unemployment <- read.csv("https://raw.githubusercontent.com/info201b-2021-aut/final-project-ydodobara/main/unemployment_data_us.csv?token=AV5HNBIXZBOMVUYCBJUB4D3BW2RJ4")
 
@@ -19,10 +19,11 @@ unemployment_education_table <- unemployment %>%
 unemployment_race_table <- unemployment %>%
   pivot_longer(cols =c("White", "Black", "Asian","Hispanic"), names_to = "Race_type", values_to = "Rate_by_race")
 
-
-# Intro page
+# Intro Page
 introduction <- tabPanel(
   "Introduction",
+    sidebarLayout(position = "right",
+    sidebarPanel(img(src = "unemployment.jpg", width = 565), style = "font-family: 'times'; font-si16pt"),
     mainPanel(
       h1("Unemployment Rates Through an Analytical Lens", style = "font-family: 'times'; font-si16pt"),
       h4("A Overview on What, Why, and How We Analyzed Data on Unemployment", style = "font-family: 'times'; font-si16pt"),
@@ -30,68 +31,25 @@ introduction <- tabPanel(
         various data sets and settled for one on unemployment rates in our nation to analyze. We chose this question for the many questions we had for it at first glance, and upon diving deeper we decided on 
         three to focus on in our analysis. The questions were the following: ", strong("'Has the unemployment rate increased or decreased more over time?', 'What group of people is the most unemployed?', and 'How is education 
         related to unemployment?'."), " Our data set contained all the information necessary to understand and answer these questions, and so with it, we set out to create answers to our questions, which we successfully 
-        were able to do and can be found in the tabs within this shiny application.
-", p(), img(src = "unemployment.jpg", width = 535), style = "font-family: 'times'; font-si16pt"), p(), h5("Created By: Parsa Khazaeepoul, Yuna Dodobara, Jinwoo Ahn, and Grace Suyama", style = "font-family: 'times'; font-si16pt")
-  )
-)
-
-
-# Interactive page 3
-unemployment_education <- tabPanel(
-  "Unemployment by Education Level",
-  sidebarLayout(
-    sidebarPanel(
-      radioButtons(
-        inputId = "radio",
-        label = h3("Select an education level:", style = "font-family: 'times'; font-si16pt"),
-        choices = list("Primary School" = "Primary_School", "High School" = "High_School", "Associates Degree" = "Associates_Degree", "Professional Degree" = "Professional_Degree")
+        were able to do and can be found in the tabs within this shiny application."
       )
-    ),
-    mainPanel(
-      plotlyOutput(outputId = "unemployment_education_chart"),
-      p("Throughout the years displayed, the average unemployment rate has ", em("consistently decreased as educational levels have risen"), "showing
-      that in the U.S. those with higher education levels are less likely to be unemployed. Upon comparing the education level and unemployment rates to each other, it can be seen that ", em("
-      each additional level of education drops unemployment rates by an additional 3-4% (out of 100)."), " This demonstrates that despite the lower unemployment rates in recent years,
-      it can still be seen that there is bias towards those with higher education, and it can logically be assumed that ", em("the less educated you are, the more likely you are to be unemployed."), style = "font-family: 'times'; font-si16pt")
     )
   )
 )
 
-# Interactive page 2
-
-unemployment_race <- 
-  tabPanel(
-    "Unemployment Data by Race", 
-    fluidPage(
- #     h2("Visualization of the unemployment rate by race.")
-    ),
-        selectInput(inputId = "race", 
-                    label = h4("Select the Race", style = "font-family: 'times'; font-si16pt"),
-                    choices = list("White" = "White","Black" = "Black", "Asian" =  "Asian","Hispanic" = "Hispanic")
-                  ),
-    mainPanel(
-      plotlyOutput(outputId = "unemployment_race_chart"),
-      p("The difference between races and their associated unemployment rates is made apparent with this visualization. Upon comparing White unemployment to Black unemployment, it can be see that there is a drastic 
-      change in scale as the percentages change noticeably for the two races. When unemployment rate is compared by each race, it can be seen that the highest unemployment rates come from Black (African American) 
-      individuals. The lowest  unemployment rates being from Asian Americans. Also, the trend of ", em("lowered")," rates of unemployment can be observed in ", strong("all")," races.", style = "font-family: 'times'; font-si16pt")
-    )
-  )
-
-
-# Interactive page 1
-
+# First Interactive Page
 unemployment_date_gender <- tabPanel(
   "Unemployment by Date and Gender",
   sidebarLayout(
     sidebarPanel(
       checkboxGroupInput(
         "gender",
-        label = h3("Select one or more genders:", style = "font-family: 'times'; font-si16pt"),
+        label = h3("Select Gender(s)", style = "font-family: 'times'; font-si16pt"),
         choices = list("Men" = "Men", "Women" = "Women")
       ),
       radioGroupButtons(
         "years",
-        label = h3("Select a year:", style = "font-family: 'times'; font-si16pt"),
+        label = h3("Select Year", style = "font-family: 'times'; font-si16pt"),
         choices = unique(unemployment_date_gender_table$Year)
       )
     ),
@@ -105,9 +63,50 @@ unemployment_date_gender <- tabPanel(
   )
 )
 
-# Conclusion page
+# Second Interactive Page
+unemployment_race <- 
+  tabPanel(
+    "Unemployment Data by Race", 
+    sidebarLayout(sidebarPanel(
+        selectInput(inputId = "race", 
+                    label = h3("Select Race", style = "font-family: 'times'; font-si16pt"),
+                    choices = list("White" = "White","Black" = "Black", "Asian" =  "Asian","Hispanic" = "Hispanic")
+                  )
+                ),
+    mainPanel(
+      plotlyOutput(outputId = "unemployment_race_chart"),
+      p("The difference between races and their associated unemployment rates is made apparent with this visualization. Upon comparing White unemployment to Black unemployment, it can be see that there is a drastic 
+      change in scale as the percentages change noticeably for the two races. When unemployment rate is compared by each race, it can be seen that the highest unemployment rates come from Black (African American) 
+      individuals. The lowest  unemployment rates being from Asian Americans. Also, the trend of ", em("lowered")," rates of unemployment can be observed in ", strong("all")," races.", style = "font-family: 'times'; font-si16pt")
+    )
+  )
+)
+# Third Interactive Page
+unemployment_education <- tabPanel(
+  "Unemployment by Education Level",
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons(
+        inputId = "radio",
+        label = h3("Select Education Level", style = "font-family: 'times'; font-si16pt"),
+        choices = list("Primary School" = "Primary_School", "High School" = "High_School", "Associates Degree" = "Associates_Degree", "Professional Degree" = "Professional_Degree")
+      )
+    ),
+    mainPanel(
+      plotlyOutput(outputId = "unemployment_education_chart"),
+      p("Throughout the years displayed, the average unemployment rate has ", em("consistently decreased as educational levels have risen"), "showing
+      that in the U.S. those with higher education levels are less likely to be unemployed. Upon comparing the education level and unemployment rates to each other, it can be seen that ", em("
+      each additional level of education drops unemployment rates by an additional 3-4% (out of 100)."), " This demonstrates that despite the lower unemployment rates in recent years,
+      it can still be seen that there is bias towards those with higher education, and it can logically be assumed that ", em("the less educated you are, the more likely you are to be unemployed."), style = "font-family: 'times'; font-si16pt")
+    )
+  )
+)
+
+# Conclusion Page
 takeaways <- tabPanel(
   "Takeaways",
+  sidebarLayout(position = "right",
+  sidebarPanel(img(src = "summary.png", width = 565), style = "font-family: 'times'; font-si16pt"),
   mainPanel(
     h1("Our Various Findings on What Affects Unemployment (And How)", style = "font-family: 'times'; font-si16pt"),
     h4("A Brief Summary on Our Questions and Our Takeaways from Their Answers", style = "font-family: 'times'; font-si16pt"),
@@ -120,13 +119,13 @@ takeaways <- tabPanel(
         incarcerations rates, and as talk show hosts even) followed itself out from society into the statistics and showed itself within the visualizations of our project. Our analysis allowed us to realize that 
         minorities and women had the lowest rates of employment, with minority women specifically having drastically lower rates of employment than white men, along with various other conclusions that we were able to 
         come to with the aid of our combined visualizations and analysis.
-", p(), img(src = "summary.png", width = 535), style = "font-family: 'times'; font-si16pt")
+", p(), )
+    )
   )
 )
 
-# UI code
-
-ui <- navbarPage(
+# UI Code
+ui <- navbarPage(theme = shinytheme("sandstone"),
   "Unemployment Data Analysis",
   introduction,
   unemployment_date_gender,
@@ -135,12 +134,10 @@ ui <- navbarPage(
   takeaways
 )
 
-# Server code
-
+# Server Code
 server <- function(input, output){
-  #Introduction
-  
-  #Interactive page 1
+
+  # First Interactive Page 
   output$unemployment_education_chart <- renderPlotly({
     unemployment_education_table %>%
       filter(Education_Level %in% input$radio) %>%
@@ -154,7 +151,8 @@ server <- function(input, output){
              xaxis = list(title = "Year"),
              yaxis = list(title = "Unemployment Rate"))
   })
-  #InteractivePageTwo 
+  
+  # Second Interactive Page 
   output$unemployment_race_chart <- renderPlotly({
     unemployment_race_table %>%
       filter(Race_type %in% input$race) %>%
@@ -169,7 +167,7 @@ server <- function(input, output){
              yaxis = list(title = "Unemployment Rate"))
   })
 
-  # Interactive page 3
+  # Third Interactive Page 
   output$date_gender_chart <- renderPlotly({
     unemployment_date_gender_table %>%
       filter(Year %in% input$years) %>%
@@ -187,4 +185,4 @@ server <- function(input, output){
 
 shinyApp(ui = ui, server = server)
 
-
+# Created By: Parsa Khazaeepoul, Yuna Dodobara, Jinwoo Ahn, and Grace Suyama
