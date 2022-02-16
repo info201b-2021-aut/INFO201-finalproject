@@ -1,4 +1,4 @@
-###[~click here to view the latest shinyapps.io deployment of our project website~](https://parsak.shinyapps.io/INFO201-finalproject/)
+[click here to view the latest shinyapps.io deployment of our project website](https://parsak.shinyapps.io/INFO201-finalproject/)
 
 #### Why are you interested in this field/domain?
 
