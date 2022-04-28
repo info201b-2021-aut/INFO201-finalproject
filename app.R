@@ -22,18 +22,18 @@ unemployment_race_table <- unemployment %>%
 # Intro Page
 introduction <- tabPanel(
   "Introduction",
-    sidebarLayout(position = "right",
-    sidebarPanel(img(src = "unemployment.jpg", width = 450), style = "font-family: 'times'; font-si16pt"),
-    mainPanel(
-      h1("Unemployment Rates Through an Analytical Lens", style = "font-family: 'times'; font-si16pt"),
-      h4("A Overview on What, Why, and How We Analyzed Data on Unemployment", style = "font-family: 'times'; font-si16pt"),
-      p("When asked to find a data set to analyze as a collective for this class, our group seeked to find something ", em("interesting and understandable"), "for the everyday person. With that, we went on to analyze
+  sidebarLayout(position = "right",
+                sidebarPanel("Created By: Parsa Khazaeepoul, Yuna Dodobara, Jinwoo Ahn, and Grace Suyama", style = "font-family: 'times'; font-si16pt"),
+                mainPanel(
+                  h1("Unemployment Rates Through an Analytical Lens", style = "font-family: 'times'; font-si16pt"),
+                  h4("A Overview on What, Why, and How We Analyzed Data on Unemployment", style = "font-family: 'times'; font-si16pt"),
+                  p("When asked to find a data set to analyze as a collective for this class, our group seeked to find something ", em("interesting and understandable"), "for the everyday person. With that, we went on to analyze
         various data sets and settled for one on unemployment rates in our nation to analyze. We chose this question for the many questions we had for it at first glance, and upon diving deeper we decided on 
         three to focus on in our analysis. The questions were the following: ", strong("'Has the unemployment rate increased or decreased more over time?', 'What group of people is the most unemployed?', and 'How is education 
         related to unemployment?'."), " Our data set contained all the information necessary to understand and answer these questions, and so with it, we set out to create answers to our questions, which we successfully 
         were able to do and can be found in the tabs within this shiny application."
-      )
-    )
+                  )
+                )
   )
 )
 
@@ -68,19 +68,19 @@ unemployment_race <-
   tabPanel(
     "Unemployment Data by Race", 
     sidebarLayout(sidebarPanel(
-        selectInput(inputId = "race", 
-                    label = h3("Select Race", style = "font-family: 'times'; font-si16pt"),
-                    choices = list("White" = "White","Black" = "Black", "Asian" =  "Asian","Hispanic" = "Hispanic")
-                  )
-                ),
+      selectInput(inputId = "race", 
+                  label = h3("Select Race", style = "font-family: 'times'; font-si16pt"),
+                  choices = list("White" = "White","Black" = "Black", "Asian" =  "Asian","Hispanic" = "Hispanic")
+      )
+    ),
     mainPanel(
       plotlyOutput(outputId = "unemployment_race_chart"),
       p("The difference between races and their associated unemployment rates is made apparent with this visualization. Upon comparing White unemployment to Black unemployment, it can be see that there is a drastic 
       change in scale as the percentages change noticeably for the two races. When unemployment rate is compared by each race, it can be seen that the highest unemployment rates come from Black (African American) 
       individuals. The lowest  unemployment rates being from Asian Americans. Also, the trend of ", em("lowered")," rates of unemployment can be observed in ", strong("all")," races.", style = "font-family: 'times'; font-si16pt")
     )
+    )
   )
-)
 # Third Interactive Page
 unemployment_education <- tabPanel(
   "Unemployment by Education Level",
@@ -106,11 +106,11 @@ unemployment_education <- tabPanel(
 takeaways <- tabPanel(
   "Takeaways",
   sidebarLayout(position = "right",
-  sidebarPanel(img(src = "summary.png", width = 450), style = "font-family: 'times'; font-si16pt"),
-  mainPanel(
-    h1("Our Various Findings on What Affects Unemployment (And How)", style = "font-family: 'times'; font-si16pt"),
-    h4("A Brief Summary on Our Questions and Our Takeaways from Their Answers", style = "font-family: 'times'; font-si16pt"),
-    p("The questions we started with were the following: ", strong("'Has the unemployment rate increased or decreased more over time?', 'What group of people is the most unemployed?', and 'How is education 
+                sidebarPanel("Created By: Parsa Khazaeepoul, Yuna Dodobara, Jinwoo Ahn, and Grace Suyama", style = "font-family: 'times'; font-si16pt"),
+                mainPanel(
+                  h1("Our Various Findings on What Affects Unemployment (And How)", style = "font-family: 'times'; font-si16pt"),
+                  h4("A Brief Summary on Our Questions and Our Takeaways from Their Answers", style = "font-family: 'times'; font-si16pt"),
+                  p("The questions we started with were the following: ", strong("'Has the unemployment rate increased or decreased more over time?', 'What group of people is the most unemployed?', and 'How is education 
         related to unemployment?'."), " With the analysis seen in our visualizations we found that the answers to our questions were as follows. For our first question we saw that unemployment rates had noticeably 
         decreased every year since 2010, with 2020 (the year of coronavirus) being the first in many where we saw a notable increase. In our visualizations we found that African Americans had the highest rates of 
         unemployment in 2020. We were also able to conclude that as educational levels increased, unemployment rates dropped alongside them. Our major takeaways from this project were that despite initially thinking 
@@ -120,23 +120,23 @@ takeaways <- tabPanel(
         minorities and women had the lowest rates of employment, with minority women specifically having drastically lower rates of employment than white men, along with various other conclusions that we were able to 
         come to with the aid of our combined visualizations and analysis.
 ", p(), )
-    )
+                )
   )
 )
 
 # UI Code
 ui <- navbarPage(theme = shinytheme("sandstone"),
-  "Unemployment Data Analysis",
-  introduction,
-  unemployment_date_gender,
-  unemployment_race,
-  unemployment_education,
-  takeaways
+                 "Unemployment Data Analysis",
+                 introduction,
+                 unemployment_date_gender,
+                 unemployment_race,
+                 unemployment_education,
+                 takeaways
 )
 
 # Server Code
 server <- function(input, output){
-
+  
   # First Interactive Page 
   output$unemployment_education_chart <- renderPlotly({
     unemployment_education_table %>%
@@ -166,7 +166,7 @@ server <- function(input, output){
              xaxis = list(title = "Year"),
              yaxis = list(title = "Unemployment Rate"))
   })
-
+  
   # Third Interactive Page 
   output$date_gender_chart <- renderPlotly({
     unemployment_date_gender_table %>%
