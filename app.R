@@ -23,7 +23,7 @@ unemployment_race_table <- unemployment %>%
 introduction <- tabPanel(
   "Introduction",
     sidebarLayout(position = "right",
-    sidebarPanel(img(src = "unemployment.jpg", width = 565), style = "font-family: 'times'; font-si16pt"),
+    sidebarPanel(img(src = "unemployment.jpg", width = 450), style = "font-family: 'times'; font-si16pt"),
     mainPanel(
       h1("Unemployment Rates Through an Analytical Lens", style = "font-family: 'times'; font-si16pt"),
       h4("A Overview on What, Why, and How We Analyzed Data on Unemployment", style = "font-family: 'times'; font-si16pt"),
@@ -106,7 +106,7 @@ unemployment_education <- tabPanel(
 takeaways <- tabPanel(
   "Takeaways",
   sidebarLayout(position = "right",
-  sidebarPanel(img(src = "summary.png", width = 565), style = "font-family: 'times'; font-si16pt"),
+  sidebarPanel(img(src = "summary.png", width = 450), style = "font-family: 'times'; font-si16pt"),
   mainPanel(
     h1("Our Various Findings on What Affects Unemployment (And How)", style = "font-family: 'times'; font-si16pt"),
     h4("A Brief Summary on Our Questions and Our Takeaways from Their Answers", style = "font-family: 'times'; font-si16pt"),
